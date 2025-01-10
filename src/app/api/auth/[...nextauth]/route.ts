@@ -1,9 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextAuthOptions } from "next-auth";
 
-// Define auth options
-const authOptions: NextAuthOptions = {
+export const authOptions: any = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -23,13 +21,13 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/logIn", // Custom login page
+    signIn: "/login", // Custom login page
   },
   session: {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
       if (user) {
         token.id = user.id;
         token.name = user.name;
@@ -46,8 +44,8 @@ const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET || "your_generated_secret_here", // Define secret
 };
 
-// Ensure correct API handler export
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+// Export NextAuth handler
+export default (req: any, res: any) => NextAuth(req, res, authOptions);
