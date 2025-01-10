@@ -1,23 +1,21 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function BirthdayMainPage() {
-  const { data: session, status } = useSession();
-
   const router = useRouter();
+  const [exist, setExist] = useState<any>();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/logIn"); // Redirect if not logged in
-    }
-  }, [status, router]);
+    setExist(localStorage.getItem("authenticated"));
+  }, []);
 
-  if (status === "loading") return <p>Loading...</p>;
+  if (exist == "") {
+    router.push("/logIn"); // Redirect if not logged in
+  }
 
-  return session ? (
+  return exist == "true" ? (
     <div className="relative flex flex-col items-center justify-center min-h-screen text-white bg-black">
       {/* Background Image */}
       <div

@@ -12,16 +12,12 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await signIn("credentials", {
-      username,
-      password,
-      redirect: false,
-    });
 
-    if (result?.error) {
-      setError("Invalid username or password");
-    } else {
+    if (username == "Baby" && password == "11/01/2002") {
       router.push("/dashboard"); // Redirect to dashboard on success
+      localStorage.setItem("authenticated", "true");
+    } else {
+      setError("Invalid username or password");
     }
   };
 
