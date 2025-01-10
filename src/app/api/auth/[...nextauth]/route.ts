@@ -1,7 +1,8 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextAuthOptions } from "next-auth";
 
-// Define auth options correctly
+// Define auth options
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -47,6 +48,6 @@ const authOptions: NextAuthOptions = {
   },
 };
 
-// Export NextAuth correctly
+// Ensure correct API handler export
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export { handler as GET };
