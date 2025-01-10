@@ -23,7 +23,7 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/login", // Custom login page
+    signIn: "/logIn", // Custom login page
   },
   session: {
     strategy: "jwt",
@@ -50,4 +50,4 @@ const authOptions: NextAuthOptions = {
 
 // Ensure correct API handler export
 const handler = NextAuth(authOptions);
-export { handler as GET };
+export { handler as GET, handler as POST };
